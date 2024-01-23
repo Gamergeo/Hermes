@@ -1,0 +1,107 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.gamergeo.project</groupId>
+	<artifactId>hermes</artifactId>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
+	
+	<properties>
+		<!-- Project properties -->
+		<revision>0.1</revision>
+		<java.version>21</java.version>
+    	<javafx.version>21</javafx.version>	
+	    <encoding>UTF-8</encoding>
+    	<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+    	
+    	 <!-- Plugin version -->
+    	<maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
+    	<flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
+    	
+    	 <!-- Bom version -->
+    	<gambom.version>1.0</gambom.version>
+	</properties>
+	
+	<modules>
+		<module>hermes-model</module>
+<!--		<module>videomanager-gui</module>-->
+<!--		<module>videomanager-service</module>-->
+<!--		<module>videomanager-dao</module>-->
+	</modules>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- java compiler (pour avoir la bonne version de java systématiquement -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<release>${java.version}</release>
+						<showDeprecation>true</showDeprecation>
+						<showWarnings>true</showWarnings>
+					</configuration>
+				</plugin>
+				
+				<!-- Indispensable pour écrire en dur le pom !-->
+				<plugin>
+			    	<groupId>org.codehaus.mojo</groupId>
+				    <artifactId>flatten-maven-plugin</artifactId>
+				    <version>${flatten-maven-plugin.version}</version>
+				    <executions>
+						<!-- enable flattening -->
+						<execution>
+				        	<id>flatten</id>
+				        	<phase>process-resources</phase>
+				        	<goals>
+				          		<goal>flatten</goal>
+				        	</goals>
+				      	</execution>
+				      	<!-- ensure proper cleanup -->
+				      	<execution>
+				        	<id>flatten.clean</id>
+				        		<phase>clean</phase>
+				        		<goals>
+				          			<goal>clean</goal>
+				        		</goals>
+			      		</execution>
+			   		</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+  
+	<!-- Dependencies Management (No import their, check module instead) -->
+	<dependencyManagement>
+		<dependencies>
+
+<!--			 Project dependency -->
+<!--			<dependency>-->
+<!--				<groupId>com.gamergeo.project</groupId>-->
+<!--				<artifactId>videomanager-model</artifactId>-->
+<!--				<version>${revision}</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>com.gamergeo.project</groupId>-->
+<!--				<artifactId>videomanager-dao</artifactId>-->
+<!--				<version>${revision}</version>-->
+<!--			</dependency>-->
+<!--			<dependency>-->
+<!--				<groupId>com.gamergeo.project</groupId>-->
+<!--				<artifactId>videomanager-service</artifactId>-->
+<!--				<version>${revision}</version>-->
+<!--			</dependency>-->
+			
+			<!-- Gamergeo BOM -->
+			<dependency>
+				<groupId>com.gamergeo.lib</groupId>
+				<artifactId>bom</artifactId>
+				<version>${gambom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
