@@ -9,9 +9,8 @@
 	
 	<properties>
 		<!-- Project properties -->
-		<revision>0.1</revision>
+		<revision>0.1.2</revision>
 		<java.version>21</java.version>
-    	<javafx.version>21</javafx.version>	
 	    <encoding>UTF-8</encoding>
     	<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
     	
@@ -25,9 +24,9 @@
 	
 	<modules>
 		<module>hermes-model</module>
-<!--		<module>videomanager-gui</module>-->
-<!--		<module>videomanager-service</module>-->
-<!--		<module>videomanager-dao</module>-->
+		<module>hermes-persistence</module>
+		<module>hermes-business</module>
+		<module>hermes-webservice</module>
 	</modules>
 	
 	<build>
@@ -69,6 +68,23 @@
 			      		</execution>
 			   		</executions>
 				</plugin>
+				
+			    <plugin>
+	                <groupId>org.springframework.boot</groupId>
+	                <artifactId>spring-boot-maven-plugin</artifactId>
+	                <version>3.2.2</version>
+	                <configuration>
+	            		<mainClass>com.gamergeo.project.hermes.webservice.application.HermesApplication</mainClass>
+	                    <executable>true</executable>
+	                </configuration>
+	                <executions>
+					    <execution>
+					        <goals>
+					            <goal>repackage</goal>
+					        </goals>
+					    </execution>
+					</executions>
+	            </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -77,22 +93,22 @@
 	<dependencyManagement>
 		<dependencies>
 
-<!--			 Project dependency -->
-<!--			<dependency>-->
-<!--				<groupId>com.gamergeo.project</groupId>-->
-<!--				<artifactId>videomanager-model</artifactId>-->
-<!--				<version>${revision}</version>-->
-<!--			</dependency>-->
-<!--			<dependency>-->
-<!--				<groupId>com.gamergeo.project</groupId>-->
-<!--				<artifactId>videomanager-dao</artifactId>-->
-<!--				<version>${revision}</version>-->
-<!--			</dependency>-->
-<!--			<dependency>-->
-<!--				<groupId>com.gamergeo.project</groupId>-->
-<!--				<artifactId>videomanager-service</artifactId>-->
-<!--				<version>${revision}</version>-->
-<!--			</dependency>-->
+			<!-- Project dependency -->
+			<dependency>
+				<groupId>com.gamergeo.project</groupId>
+				<artifactId>hermes-model</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.gamergeo.project</groupId>
+				<artifactId>hermes-persistence</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.gamergeo.project</groupId>
+				<artifactId>hermes-business</artifactId>
+				<version>${revision}</version>
+			</dependency>
 			
 			<!-- Gamergeo BOM -->
 			<dependency>
