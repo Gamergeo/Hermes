@@ -1,0 +1,5 @@
+0.1.3 : Dev/recette/prod profile and shutdown.bat
+
+	- Webservice start and close on dev (war) recette and prod (jar)
+	- Executable jar ok
+	- H2 connection ok

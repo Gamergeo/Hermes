@@ -39,7 +39,6 @@
 		<pluginManagement>
 			<plugins>
 				
-				
 				<!-- java compiler (pour avoir la bonne version de java systématiquement -->
 <!--				<plugin>-->
 <!--					<groupId>org.apache.maven.plugins</groupId>-->
@@ -77,22 +76,7 @@
 <!--			   		</executions>-->
 <!--				</plugin>-->
 				
-			    <plugin>
-	                <groupId>org.springframework.boot</groupId>
-	                <artifactId>spring-boot-maven-plugin</artifactId>
-<!--	                <version>3.2.2</version>-->
-	                <configuration>
-	            		<mainClass>com.gamergeo.project.hermes.webservice.application.HermesApplication</mainClass>
-	                    <executable>true</executable>
-	                </configuration>
-	                <executions>
-					    <execution>
-					        <goals>
-					            <goal>repackage</goal>
-					        </goals>
-					    </execution>
-					</executions>
-	            </plugin>
+
 			</plugins>
 		</pluginManagement>
 	</build>

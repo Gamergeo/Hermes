@@ -20,10 +20,21 @@
                 <finalName>hermes-dev</finalName>
                 <packaging>war</packaging>
                 <scope.embeddedtomcat>provided</scope.embeddedtomcat>
+                <outputDirectory>${project.build.directory}</outputDirectory>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+        </profile>
+        <profile>
+            <id>recette</id>
+            <properties>
+                <springProfile>recette</springProfile>
+                <finalName>hermes-recette</finalName>
+                <packaging>jar</packaging>
+                <scope.embeddedtomcat>compile</scope.embeddedtomcat>
+                <outputDirectory>${project.build.directory}/${finalName}</outputDirectory>
+            </properties>
         </profile>
         <profile>
             <id>prod</id>
@@ -32,6 +43,7 @@
                 <finalName>hermes</finalName>
                 <packaging>jar</packaging>
                 <scope.embeddedtomcat>compile</scope.embeddedtomcat>
+                <outputDirectory>${project.build.directory}/${finalName}</outputDirectory>
             </properties>
         </profile>
     </profiles>
@@ -45,7 +57,63 @@
 		    <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+            		<mainClass>com.gamergeo.project.hermes.webservice.application.HermesApplication</mainClass>
+                    <executable>true</executable>
+                </configuration>
+                <executions>
+				    <execution>
+				        <goals>
+				            <goal>repackage</goal>
+				        </goals>
+				    </execution>
+				</executions>
             </plugin>
+            
+	        <plugin>
+				<!-- Copy jar and some script to Final build directory -->
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-resources-plugin</artifactId>
+	            <executions>
+
+	                <execution>
+	                    <id>copy-batch-file</id>
+	                    <phase>package</phase> 
+	                    <goals>
+	                        <goal>copy-resources</goal>
+	                    </goals>
+	                    <configuration>
+	                        <outputDirectory>${outputDirectory}/bin</outputDirectory>
+	                        <resources>
+	                            <resource>
+	                                <directory>src/main/resources</directory>
+	                                <includes>
+	                                    <include>shutdown.bat</include>
+	                                </includes>
+	                            </resource>
+	                        </resources>
+	                    </configuration>
+	                </execution>
+	                <execution>
+	                    <id>copy-jar-file</id>
+	                    <phase>package</phase> <!-- Vous pouvez ajuster la phase selon vos besoins -->
+	                    <goals>
+	                        <goal>copy-resources</goal>
+	                    </goals>
+	                    <configuration>
+	                        <outputDirectory>${outputDirectory}/</outputDirectory>
+	                        <resources>
+	                            <resource>
+	                                <directory>${project.build.directory}</directory>
+	                                <includes>
+	                                    <include>${finalName}.jar</include>
+	                                </includes>
+	                            </resource>
+	                        </resources>
+	                    </configuration>
+	                </execution>
+	            </executions>
+	        </plugin>
 		</plugins>
 	</build>
 	
@@ -61,6 +129,7 @@
 		    <artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
+		<!-- Tomcat -->
 		<dependency>
 		   <groupId>org.springframework.boot</groupId>
 		   <artifactId>spring-boot-starter-tomcat</artifactId>

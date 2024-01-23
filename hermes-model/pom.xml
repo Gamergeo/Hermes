@@ -15,6 +15,11 @@
 	<artifactId>hermes-model</artifactId>
 	<packaging>jar</packaging>
 	
+<!--	<properties>-->
+		<!-- Skip repackage for this module -->
+<!--    	<spring-boot.repackage.skip>true</spring-boot.repackage.skip>-->
+<!--	</properties>-->
+	
 <!--	<build>-->
 <!--		 Plugin for local execution -->
 <!--		<plugins>-->
