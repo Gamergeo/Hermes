@@ -12,27 +12,39 @@
 		<version>${revision}</version>
 	</parent>
 
+	<profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <springProfile>dev</springProfile>
+                <finalName>hermes-dev</finalName>
+                <packaging>war</packaging>
+                <scope.embeddedtomcat>provided</scope.embeddedtomcat>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <springProfile>prod</springProfile>
+                <finalName>hermes</finalName>
+                <packaging>jar</packaging>
+                <scope.embeddedtomcat>compile</scope.embeddedtomcat>
+            </properties>
+        </profile>
+    </profiles>
+    
 	<artifactId>hermes-webservice</artifactId>
-	<packaging>jar</packaging>
+	<packaging>${packaging}</packaging>
 	
 	<build>
-		<finalName>hermes</finalName>
+		<finalName>${finalName}</finalName>
 		<plugins>
 		    <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <version>3.2.2</version>-->
-<!--                <configuration>-->
-<!--            		<mainClass>com.gamergeo.project.hermes.webservice.application.HermesApplication</mainClass>-->
-<!--                    <executable>true</executable>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--				    <execution>-->
-<!--				        <goals>-->
-<!--				            <goal>repackage</goal>-->
-<!--				        </goals>-->
-<!--				    </execution>-->
-<!--				</executions>-->
             </plugin>
 		</plugins>
 	</build>
@@ -52,14 +64,13 @@
 		<dependency>
 		   <groupId>org.springframework.boot</groupId>
 		   <artifactId>spring-boot-starter-tomcat</artifactId>
-<!--		   <scope>provided</scope>-->
+		   <scope>${scope.embeddedtomcat}</scope>
 		</dependency>
 		
-		
-		
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <scope>runtime</scope>
 		</dependency>
 	</dependencies>
 	
